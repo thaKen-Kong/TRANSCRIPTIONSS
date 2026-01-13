@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://bjc5twpi2yloe"]
+
+[ext_resource type="Script" uid="uid://x0s83w8pvk4s" path="res://scripts/world/buildings/quiz_house.gd" id="1_2q8ni"]
+[ext_resource type="Texture2D" uid="uid://cgmnyagpxym6k" path="res://assets/world/Assets/gene_lib.png" id="2_2q8ni"]
+[ext_resource type="PackedScene" uid="uid://dcmteki0o3m78" path="res://scenes/utils/interaction_area.tscn" id="2_bvas0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2q8ni"]
+size = Vector2(234.5, 151.5)
+
+[node name="QUIZ_HOUSE" type="StaticBody2D"]
+collision_layer = 128
+collision_mask = 2
+script = ExtResource("1_2q8ni")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-136, 134, 137, 134, 127, 121, 137, 57, 145, -25, -149, -21, -140, 54, -127, 120)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_2q8ni")
+
+[node name="InteractionArea" parent="." instance=ExtResource("2_bvas0")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea"]
+position = Vector2(-2, 135)
+shape = SubResource("RectangleShape2D_2q8ni")

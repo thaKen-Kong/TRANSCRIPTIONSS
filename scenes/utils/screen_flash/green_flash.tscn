@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://w4mfrgibb6s3"]
+
+[ext_resource type="Script" uid="uid://c4m40o5qwktu4" path="res://scripts/utils/screen_flash/green_flash.gd" id="1_pclyf"]
+
+[node name="green_flash" type="ColorRect"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 18.609732, 0, 0.2901961)
+script = ExtResource("1_pclyf")

@@ -1,0 +1,9 @@
+~ start
+Nucleolus:
+	Welcome! You seem new here?
+- Yes:
+	Nucleolus:
+		Want me to show you around?
+- No:
+	Ok then, do the mission if you have time.
+=> END

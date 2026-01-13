@@ -1,0 +1,211 @@
+[gd_scene load_steps=19 format=3 uid="uid://ngofvgb0icyd"]
+
+[ext_resource type="Texture2D" uid="uid://bvl0ovb44jxj8" path="res://assets/rush/Untitled43_20260105180103.png" id="1_7vgvk"]
+[ext_resource type="Script" uid="uid://crtnsckq1cksi" path="res://scripts/objects/dna.gd" id="1_hdwnv"]
+[ext_resource type="PackedScene" uid="uid://4wx5x4880fvr" path="res://scenes/objects/game_level_obj/rna_p.tscn" id="2_0aa6f"]
+[ext_resource type="PackedScene" uid="uid://c7md4vxetlvi" path="res://scenes/minigames/find_promoter.tscn" id="2_bcsye"]
+[ext_resource type="PackedScene" uid="uid://dcmteki0o3m78" path="res://scenes/utils/interaction_area.tscn" id="2_ovv37"]
+[ext_resource type="PackedScene" uid="uid://jn6q8r6a24nq" path="res://scenes/minigames/binding_minigame.tscn" id="3_ysat1"]
+[ext_resource type="Texture2D" uid="uid://m2vjho3ioabp" path="res://assets/tiles/gray_ui.png" id="5_1kvct"]
+[ext_resource type="Texture2D" uid="uid://dwjeih7o4fhke" path="res://assets/rush/Untitled50_20260108181446.png" id="5_3opi6"]
+[ext_resource type="PackedScene" uid="uid://dorrtahxg5r22" path="res://scenes/minigames/termination_minigame.tscn" id="5_gaeuq"]
+[ext_resource type="Texture2D" uid="uid://c5hay5lhc6aa3" path="res://assets/tiles/ui_3.png" id="6_1kvct"]
+[ext_resource type="FontFile" uid="uid://on5pnthgw80n" path="res://assets/fonts/Stacked pixel.ttf" id="7_liwyf"]
+[ext_resource type="PackedScene" uid="uid://cqr4w4eoyx67y" path="res://scenes/objects/game_level_obj/drop_areas/promoter_region.tscn" id="8_8thj8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7vgvk"]
+size = Vector2(2715, 109)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ovv37"]
+atlas = ExtResource("1_7vgvk")
+region = Rect2(955, 4080, 2804, 402)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hdwnv"]
+size = Vector2(2806, 195)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0aa6f"]
+atlas = ExtResource("1_7vgvk")
+region = Rect2(4113, 1807, 193, 992)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3opi6"]
+atlas = ExtResource("1_7vgvk")
+region = Rect2(4026, 1370, 305, 367)
+
+[sub_resource type="Curve2D" id="Curve2D_3opi6"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -1187, 1, 0, 0, 0, 0, 1123, -3)
+}
+point_count = 2
+
+[node name="dna" type="StaticBody2D" groups=["dna"]]
+collision_layer = 8
+collision_mask = 2
+script = ExtResource("1_hdwnv")
+rna_polymerase_scene = ExtResource("2_0aa6f")
+rna_spawn_position = Vector2(584, 441)
+promoter_region_minigame = ExtResource("2_bcsye")
+rna_polymerase_minigame = ExtResource("3_ysat1")
+termination_minigame_scene = ExtResource("5_gaeuq")
+
+[node name="Shadow" type="Sprite2D" parent="."]
+position = Vector2(-56.999996, 124)
+scale = Vector2(2.901, 1)
+texture = ExtResource("5_3opi6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-28.5, 77.5)
+shape = SubResource("RectangleShape2D_7vgvk")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+self_modulate = Color(1, 1, 1, 0.60784316)
+texture = SubResource("AtlasTexture_ovv37")
+
+[node name="InteractionArea" parent="." instance=ExtResource("2_ovv37")]
+action_name = "FIND PROMOTER"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea"]
+position = Vector2(-22, 87.5)
+shape = SubResource("RectangleShape2D_hdwnv")
+
+[node name="PhaseLabel" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="PhaseLabel"]
+layout_mode = 3
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -637.0
+offset_top = -112.0
+offset_right = 639.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="TaskBar" type="NinePatchRect" parent="PhaseLabel/Control"]
+self_modulate = Color(1, 1, 1, 0.53333336)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -25.0
+offset_top = 77.0
+offset_right = 22.0
+offset_bottom = 29.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_1kvct")
+patch_margin_left = 32
+patch_margin_top = 32
+patch_margin_right = 32
+patch_margin_bottom = 32
+
+[node name="TIME_LEFT" type="Label" parent="PhaseLabel/Control/TaskBar"]
+layout_mode = 0
+offset_left = 44.0
+offset_top = 7.0
+offset_right = 223.0
+offset_bottom = 30.0
+theme_override_fonts/font = ExtResource("7_liwyf")
+theme_override_font_sizes/font_size = 25
+text = "TIME LEFT: 200"
+vertical_alignment = 1
+
+[node name="DELIVERED" type="Label" parent="PhaseLabel/Control/TaskBar"]
+layout_mode = 0
+offset_left = 337.0
+offset_top = 6.0
+offset_right = 516.0
+offset_bottom = 29.0
+theme_override_fonts/font = ExtResource("7_liwyf")
+theme_override_font_sizes/font_size = 25
+text = "DELIVERED: 3/3"
+vertical_alignment = 1
+
+[node name="LabelBG" type="NinePatchRect" parent="PhaseLabel/Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -125.0
+offset_top = -11.0
+offset_right = 129.0
+offset_bottom = 53.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("6_1kvct")
+patch_margin_left = 32
+patch_margin_top = 32
+patch_margin_right = 32
+patch_margin_bottom = 32
+
+[node name="PhaseIndicator" type="Label" parent="PhaseLabel/Control/LabelBG"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -60.0
+offset_top = -11.5
+offset_right = 60.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 0.80784315, 0.15294118, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 7
+theme_override_fonts/font = ExtResource("7_liwyf")
+theme_override_font_sizes/font_size = 30
+text = "PRE INITIATION"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TEMPLATE" type="Sprite2D" parent="PhaseLabel/Control"]
+position = Vector2(1026, 78.999985)
+rotation = 1.5707964
+scale = Vector2(0.5752668, 0.48978207)
+texture = SubResource("AtlasTexture_0aa6f")
+
+[node name="DNA TEMPLATE STRAND" type="Label" parent="PhaseLabel/Control/TEMPLATE"]
+offset_left = -17.383253
+offset_top = 263.38245
+offset_right = 492.5318
+offset_bottom = 328.1435
+rotation = -1.5707964
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("7_liwyf")
+theme_override_font_sizes/font_size = 60
+text = "ASDA"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label" type="Label" parent="PhaseLabel/Control"]
+layout_mode = 0
+offset_left = 961.0
+offset_top = 40.0
+offset_right = 1082.0
+offset_bottom = 63.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("7_liwyf")
+theme_override_font_sizes/font_size = 20
+text = "DNA TEMPLATE"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PROMOTER_REGION" parent="." instance=ExtResource("8_8thj8")]
+position = Vector2(-1181, 7)
+
+[node name="TerminationSite" type="Sprite2D" parent="."]
+position = Vector2(1131.9998, 0)
+texture = SubResource("AtlasTexture_3opi6")
+
+[node name="Path2D" type="Path2D" parent="."]
+curve = SubResource("Curve2D_3opi6")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
+position = Vector2(-1187, 1)
+rotation = -0.0017316

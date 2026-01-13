@@ -1,0 +1,23 @@
+[gd_scene load_steps=2 format=3 uid="uid://cd2m5cl2mj1qq"]
+
+[ext_resource type="Script" uid="uid://dqt2e23uj4n1i" path="res://scripts/objects/game_level/grabbable_object.gd" id="1_qf88c"]
+
+[node name="GrabbableObject" type="RigidBody2D"]
+collision_layer = 8
+collision_mask = 0
+gravity_scale = 0.0
+linear_damp = 4.0
+angular_damp = 4.0
+script = ExtResource("1_qf88c")
+bob_amplitude = 20.0
+bob_frequency = 100.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+[node name="GrabArea" type="Area2D" parent="."]
+collision_layer = 512
+collision_mask = 1280
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GrabArea"]

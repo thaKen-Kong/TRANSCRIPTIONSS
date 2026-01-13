@@ -1,0 +1,75 @@
+[gd_scene load_steps=9 format=3 uid="uid://ufb3fl7v20fj"]
+
+[ext_resource type="Texture2D" uid="uid://gfn10vgeu4xq" path="res://assets/rush/Untitled52_20260108195355.png" id="1_vecuh"]
+[ext_resource type="Script" uid="uid://b8yd56uhyya5k" path="res://scripts/objects/game_level/BaseParingMinigameObjects/segment_mRNA.gd" id="2_aw1yc"]
+[ext_resource type="FontFile" uid="uid://on5pnthgw80n" path="res://assets/fonts/Stacked pixel.ttf" id="3_j40l1"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aw1yc"]
+atlas = ExtResource("1_vecuh")
+region = Rect2(388, 224, 721, 299)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hably"]
+
+[sub_resource type="Theme" id="Theme_j40l1"]
+Button/styles/normal = SubResource("StyleBoxTexture_hably")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_aw1yc"]
+bg_color = Color(0.6041713, 0.4725362, 0.28221157, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0, 0, 0, 1)
+shadow_size = 2
+
+[sub_resource type="Theme" id="Theme_ads1h"]
+Button/colors/font_color = Color(0.875, 0.875, 0.875, 1)
+Button/constants/outline_size = 10
+Button/font_sizes/font_size = 50
+Button/fonts/font = ExtResource("3_j40l1")
+Button/styles/normal = SubResource("StyleBoxFlat_aw1yc")
+
+[node name="SEGMENT_MRNA" type="TextureRect" node_paths=PackedStringArray("check_button")]
+offset_right = 721.0
+offset_bottom = 299.0
+scale = Vector2(0.7, 0.7)
+texture = SubResource("AtlasTexture_aw1yc")
+script = ExtResource("2_aw1yc")
+check_button = NodePath("Check")
+
+[node name="Slot1" type="Button" parent="."]
+layout_mode = 0
+offset_left = 89.99999
+offset_top = 25.714323
+offset_right = 204.2857
+offset_bottom = 187.14294
+theme = SubResource("Theme_j40l1")
+
+[node name="Slot2" type="Button" parent="."]
+layout_mode = 0
+offset_left = 292.85712
+offset_top = 30.000038
+offset_right = 412.85712
+offset_bottom = 187.14288
+theme = SubResource("Theme_j40l1")
+
+[node name="Slot3" type="Button" parent="."]
+layout_mode = 0
+offset_left = 504.28568
+offset_top = 28.571466
+offset_right = 624.28564
+offset_bottom = 185.71432
+theme = SubResource("Theme_j40l1")
+
+[node name="Check" type="Button" parent="."]
+layout_mode = 0
+offset_left = 185.7143
+offset_top = 235.7143
+offset_right = 519.99994
+offset_bottom = 316.7143
+theme = SubResource("Theme_ads1h")
+text = "CHECK PAIR"
+
+[connection signal="pressed" from="Slot1" to="." method="_on_slot_1_pressed"]
+[connection signal="pressed" from="Slot2" to="." method="_on_slot_2_pressed"]
+[connection signal="pressed" from="Slot3" to="." method="_on_slot_3_pressed"]

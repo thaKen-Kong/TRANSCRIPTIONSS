@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://c3isf24qyrvha"]
+
+[ext_resource type="AudioStream" uid="uid://bammf4yatos5b" path="res://assets/sfx/fall-impact-heavy-and-realistic-demo-309899.mp3" id="1_lxsh1"]
+
+[node name="SfxManager" type="Node2D"]
+
+[node name="click" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("1_lxsh1")
+volume_db = 24.0
+autoplay = true

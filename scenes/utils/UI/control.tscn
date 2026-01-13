@@ -1,0 +1,120 @@
+[gd_scene load_steps=6 format=3 uid="uid://dfi43cqkfj8u6"]
+
+[ext_resource type="Texture2D" uid="uid://bsk2sa3nvjae0" path="res://assets/world/Assets/ui/ui_1.png" id="1_7g5gn"]
+[ext_resource type="Texture2D" uid="uid://6d8jkuodfuvp" path="res://assets/world/Assets/ui/ui_2.png" id="2_o2vpm"]
+[ext_resource type="FontFile" uid="uid://on5pnthgw80n" path="res://assets/fonts/Stacked pixel.ttf" id="3_8mdwm"]
+[ext_resource type="Theme" uid="uid://b2d4en2jrovd1" path="res://assets/fonts/def_label.tres" id="3_ddlx1"]
+[ext_resource type="Texture2D" uid="uid://b3ur7whi7egjm" path="res://assets/world/Assets/ui/ui2.png" id="3_o2vpm"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -874.5
+offset_top = -449.5
+offset_right = 874.5
+offset_bottom = 505.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_7g5gn")
+patch_margin_left = 64
+patch_margin_top = 64
+patch_margin_right = 64
+patch_margin_bottom = 64
+
+[node name="TITLE" type="NinePatchRect" parent="NinePatchRect"]
+layout_mode = 0
+offset_left = 304.0
+offset_top = -72.0
+offset_right = 1447.0
+offset_bottom = 100.0
+texture = ExtResource("3_o2vpm")
+patch_margin_left = 64
+patch_margin_top = 64
+patch_margin_right = 64
+patch_margin_bottom = 64
+
+[node name="title-label" type="Label" parent="NinePatchRect/TITLE"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_ddlx1")
+theme_override_colors/font_color = Color(1, 0.7019608, 0, 1)
+theme_override_colors/font_shadow_color = Color(0.5568628, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_y = 8
+theme_override_fonts/font = ExtResource("3_8mdwm")
+theme_override_font_sizes/font_size = 100
+text = "DNA MISSION TERMINAL"
+
+[node name="MISSION_DETAILS" type="NinePatchRect" parent="NinePatchRect"]
+layout_mode = 0
+offset_left = 535.5
+offset_top = 106.0
+offset_right = 1667.0
+offset_bottom = 884.5
+texture = ExtResource("2_o2vpm")
+patch_margin_left = 64
+patch_margin_top = 64
+patch_margin_right = 64
+patch_margin_bottom = 64
+
+[node name="GridContainer" type="GridContainer" parent="NinePatchRect/MISSION_DETAILS"]
+layout_mode = 0
+offset_left = 81.5
+offset_top = 192.5
+offset_right = 1057.0
+offset_bottom = 688.5
+theme_override_constants/v_separation = 9
+
+[node name="mission_title" type="Label" parent="NinePatchRect/MISSION_DETAILS/GridContainer"]
+layout_mode = 2
+theme = ExtResource("3_ddlx1")
+text = "MISSION TITLE: "
+
+[node name="difficulty" type="Label" parent="NinePatchRect/MISSION_DETAILS/GridContainer"]
+layout_mode = 2
+theme = ExtResource("3_ddlx1")
+text = "DIFFICULTY: "
+
+[node name="rewards" type="Label" parent="NinePatchRect/MISSION_DETAILS/GridContainer"]
+layout_mode = 2
+theme = ExtResource("3_ddlx1")
+text = "REWARDS"
+
+[node name="mission_info" type="Label" parent="NinePatchRect/MISSION_DETAILS/GridContainer"]
+layout_mode = 2
+theme = ExtResource("3_ddlx1")
+text = "MISSION INFO: "
+
+[node name="MISSION_LIST" type="NinePatchRect" parent="NinePatchRect"]
+layout_mode = 0
+offset_left = 83.5
+offset_top = 126.5
+offset_right = 517.5
+offset_bottom = 869.5
+texture = ExtResource("2_o2vpm")
+patch_margin_left = 64
+patch_margin_top = 64
+patch_margin_right = 64
+patch_margin_bottom = 64

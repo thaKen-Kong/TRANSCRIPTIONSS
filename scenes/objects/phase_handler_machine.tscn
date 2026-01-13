@@ -1,0 +1,40 @@
+[gd_scene load_steps=7 format=3 uid="uid://b6w7lwg556pty"]
+
+[ext_resource type="Texture2D" uid="uid://nn8c2iu0txxo" path="res://icon.svg" id="1_6tgis"]
+[ext_resource type="Script" uid="uid://s8xut0eey1b1" path="res://scripts/objects/phase_handler_machine.gd" id="1_u73gm"]
+[ext_resource type="PackedScene" uid="uid://dcmteki0o3m78" path="res://scenes/utils/interaction_area.tscn" id="2_grpbx"]
+[ext_resource type="PackedScene" uid="uid://dy7g2af4bruog" path="res://scenes/utils/UI/phm_ui.tscn" id="4_f22fd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6tgis"]
+size = Vector2(80, 82)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_u73gm"]
+radius = 59.0
+
+[node name="PhaseHandlerMachine" type="StaticBody2D"]
+script = ExtResource("1_u73gm")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.6328125, 1)
+texture = ExtResource("1_6tgis")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 21)
+shape = SubResource("RectangleShape2D_6tgis")
+
+[node name="InteractionArea" parent="." instance=ExtResource("2_grpbx")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea"]
+position = Vector2(-1, 31)
+shape = SubResource("CircleShape2D_u73gm")
+
+[node name="phm_ui" parent="." instance=ExtResource("4_f22fd")]
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+offset_left = -92.0
+offset_top = -98.0
+offset_right = 92.0
+offset_bottom = -71.0
+
+[connection signal="body_entered" from="InteractionArea" to="." method="_on_interaction_area_body_entered"]
+[connection signal="body_exited" from="InteractionArea" to="." method="_on_interaction_area_body_exited"]

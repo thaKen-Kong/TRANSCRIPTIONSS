@@ -1,0 +1,111 @@
+[gd_scene load_steps=4 format=3 uid="uid://bywprtkvdibs7"]
+
+[ext_resource type="FontFile" uid="uid://on5pnthgw80n" path="res://assets/fonts/Stacked pixel.ttf" id="1_0ftmc"]
+[ext_resource type="Script" uid="uid://cx2geonppjko4" path="res://scripts/utils/reward_scene.gd" id="1_hhymm"]
+
+[sub_resource type="Theme" id="Theme_hhymm"]
+Label/fonts/font = ExtResource("1_0ftmc")
+
+[node name="RewardScene" type="CanvasLayer"]
+script = ExtResource("1_hhymm")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_hhymm")
+
+[node name="LEVEL_COMPLETE" type="Label" parent="Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.24492188
+anchor_top = 0.115277775
+anchor_right = 0.75507814
+anchor_bottom = 0.19722222
+offset_left = -76.5
+offset_right = 76.5
+offset_bottom = 23.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 100
+text = "Time's up!!"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="SUMMARY" type="Label" parent="Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.1953125
+anchor_top = 0.2777778
+anchor_right = 0.7890625
+anchor_bottom = 0.38055557
+offset_right = 40.0
+offset_bottom = 13.0
+theme_override_font_sizes/font_size = 50
+text = "SUMMARY: CONGRATULATIONS ON TRANSCRIBING THE DNA"
+vertical_alignment = 1
+autowrap_mode = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="REWARD_DETAILS" type="Label" parent="Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.228125
+anchor_top = 0.44305557
+anchor_right = 0.41365623
+anchor_bottom = 0.4795556
+offset_right = 34.51999
+offset_bottom = 6.7199707
+theme_override_font_sizes/font_size = 40
+text = "REWARD DETAILS:"
+metadata/_edit_use_anchors_ = true
+
+[node name="DELIVERIES" type="Label" parent="Control"]
+layout_mode = 0
+offset_left = 293.0
+offset_top = 374.0
+offset_right = 473.0
+offset_bottom = 407.0
+theme_override_font_sizes/font_size = 40
+text = "DELIVERIES :"
+
+[node name="DELIVERIES2" type="Label" parent="Control"]
+layout_mode = 0
+offset_left = 294.0
+offset_top = 424.0
+offset_right = 474.0
+offset_bottom = 457.0
+theme_override_font_sizes/font_size = 40
+text = "ATP LEFT : "
+
+[node name="DELIVERIES3" type="Label" parent="Control"]
+layout_mode = 0
+offset_left = 223.0
+offset_top = 531.0
+offset_right = 407.0
+offset_bottom = 581.0
+theme_override_font_sizes/font_size = 60
+text = "TOTAL :"
+
+[node name="FINISH" type="Button" parent="Control"]
+layout_mode = 0
+offset_left = 934.0
+offset_top = 634.0
+offset_right = 1173.0
+offset_bottom = 675.0
+theme_override_fonts/font = ExtResource("1_0ftmc")
+theme_override_font_sizes/font_size = 40
+text = "FINISH
+"

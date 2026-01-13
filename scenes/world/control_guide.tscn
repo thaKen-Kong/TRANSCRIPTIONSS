@@ -1,0 +1,63 @@
+[gd_scene load_steps=7 format=3 uid="uid://by67xo8xjhpbj"]
+
+[ext_resource type="Texture2D" uid="uid://cbwr0fx6khl8s" path="res://assets/BUTTONS (WASD)/W.png" id="1_op2yf"]
+[ext_resource type="Texture2D" uid="uid://dstjp6sml1lin" path="res://assets/BUTTONS (WASD)/S.png" id="2_ag5ms"]
+[ext_resource type="Texture2D" uid="uid://c4mja4te1vro6" path="res://assets/BUTTONS (WASD)/D.png" id="3_2s2gu"]
+[ext_resource type="Texture2D" uid="uid://c3wiw1vwfyro1" path="res://assets/BUTTONS (WASD)/A.png" id="4_pkrga"]
+[ext_resource type="Texture2D" uid="uid://cg1hdremqy4ai" path="res://assets/BUTTONS (WASD)/E.png" id="5_2s2gu"]
+[ext_resource type="FontFile" uid="uid://on5pnthgw80n" path="res://assets/fonts/Stacked pixel.ttf" id="6_pkrga"]
+
+[node name="Control Guide" type="Node2D"]
+
+[node name="W" type="Sprite2D" parent="."]
+position = Vector2(-1.9999999, -38)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("1_op2yf")
+
+[node name="S" type="Sprite2D" parent="."]
+position = Vector2(-1, 79)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("2_ag5ms")
+
+[node name="D" type="Sprite2D" parent="."]
+position = Vector2(128, 81.00001)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("3_2s2gu")
+
+[node name="A" type="Sprite2D" parent="."]
+position = Vector2(-133.00002, 81.00001)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("4_pkrga")
+
+[node name="E" type="Sprite2D" parent="."]
+position = Vector2(756, 79)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("5_2s2gu")
+
+[node name="Label" type="Label" parent="."]
+offset_left = -144.0
+offset_top = 143.0
+offset_right = 144.0
+offset_bottom = 195.0
+theme_override_colors/font_color = Color(1, 0.75686276, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 9
+theme_override_fonts/font = ExtResource("6_pkrga")
+theme_override_font_sizes/font_size = 64
+text = "MOVEMENT"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="."]
+offset_left = 611.0
+offset_top = 150.0
+offset_right = 899.0
+offset_bottom = 202.0
+theme_override_colors/font_color = Color(1, 0.75686276, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 9
+theme_override_fonts/font = ExtResource("6_pkrga")
+theme_override_font_sizes/font_size = 64
+text = "INTERACT"
+horizontal_alignment = 1
+vertical_alignment = 1

@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://ca7hcha6sfs7n"]
+
+[ext_resource type="Shader" uid="uid://clfwkyhlheg83" path="res://scripts/utils/shaders/blur.gdshader" id="1_l3d6q"]
+[ext_resource type="Script" uid="uid://7ypkh30r6p55" path="res://scenes/utils/shaders/blur.gd" id="2_h8846"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_h8846"]
+shader = ExtResource("1_l3d6q")
+shader_parameter/blur_radius = 8
+shader_parameter/Darkness = 0.1
+shader_parameter/R = 0.0
+shader_parameter/G = 0.0
+shader_parameter/B = 0.0
+shader_parameter/blur_strength = 1.0
+
+[node name="blur" type="ColorRect"]
+material = SubResource("ShaderMaterial_h8846")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_h8846")

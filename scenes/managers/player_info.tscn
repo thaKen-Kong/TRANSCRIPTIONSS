@@ -1,0 +1,12 @@
+[gd_scene load_steps=4 format=3 uid="uid://cqa1rvn5e1isw"]
+
+[ext_resource type="Script" uid="uid://dnaunmp7dtrlr" path="res://scripts/managers/player_info.gd" id="1_63x18"]
+[ext_resource type="Script" uid="uid://gmryenywrb7n" path="res://res/scripts/playerStats.gd" id="2_vhgl3"]
+
+[sub_resource type="Resource" id="Resource_6svgn"]
+script = ExtResource("2_vhgl3")
+metadata/_custom_type_script = "uid://gmryenywrb7n"
+
+[node name="PlayerInfo" type="Node2D"]
+script = ExtResource("1_63x18")
+player_info = SubResource("Resource_6svgn")

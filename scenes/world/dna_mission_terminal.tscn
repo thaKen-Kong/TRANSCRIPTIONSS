@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://fdr25f3fss3x"]
+
+[ext_resource type="Script" uid="uid://16bqb75siu67" path="res://scripts/world/buildings/dna_mission_terminal.gd" id="1_a3js4"]
+[ext_resource type="Texture2D" uid="uid://dc8uj170geows" path="res://assets/world/Assets/dma_mission_terminal.png" id="1_ar0gf"]
+[ext_resource type="PackedScene" uid="uid://dcmteki0o3m78" path="res://scenes/utils/interaction_area.tscn" id="2_jmyui"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a3js4"]
+size = Vector2(447, 177)
+
+[node name="DNA_MT" type="StaticBody2D"]
+collision_layer = 128
+collision_mask = 2
+script = ExtResource("1_a3js4")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-237, 275, 240, 274, 250, 226, 247, 171, 229, 115, 213, 84, 187, 54, -180, 53, -217, 89, -240, 141, -250, 189, -250, 238)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_ar0gf")
+
+[node name="InteractionArea" parent="." instance=ExtResource("2_jmyui")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea"]
+position = Vector2(3.5, 277.5)
+shape = SubResource("RectangleShape2D_a3js4")

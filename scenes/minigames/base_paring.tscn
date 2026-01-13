@@ -1,0 +1,178 @@
+[gd_scene load_steps=11 format=3 uid="uid://c8r56i0x3t4o2"]
+
+[ext_resource type="Script" uid="uid://c0t7t853vet4n" path="res://scripts/minigames/base_paring.gd" id="1_f6cyh"]
+[ext_resource type="FontFile" uid="uid://on5pnthgw80n" path="res://assets/fonts/Stacked pixel.ttf" id="1_hably"]
+[ext_resource type="PackedScene" uid="uid://w4mfrgibb6s3" path="res://scenes/utils/screen_flash/green_flash.tscn" id="2_vtusl"]
+[ext_resource type="Texture2D" uid="uid://df5gf17u3n8u3" path="res://assets/ui_borders/PNG/Double/Panel/panel-014.png" id="3_f6cyh"]
+[ext_resource type="PackedScene" uid="uid://dd5n8ri2bhg0u" path="res://scenes/utils/screen_flash/red_flash.tscn" id="3_vrmx1"]
+[ext_resource type="PackedScene" uid="uid://buatmdl28dk8e" path="res://scenes/objects/game_level_obj/BaseParingMinigameObjects/codon(dna_sequence_container.tscn" id="4_sjrcp"]
+[ext_resource type="PackedScene" uid="uid://ufb3fl7v20fj" path="res://scenes/objects/game_level_obj/BaseParingMinigameObjects/segment_mrna.tscn" id="4_unpv4"]
+[ext_resource type="PackedScene" uid="uid://cc8ub3lho657x" path="res://scenes/objects/game_level_obj/BaseParingMinigameObjects/card_button_container.tscn" id="5_f6cyh"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sjrcp"]
+bg_color = Color(0.8352941, 0.79607844, 0.49803922, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+shadow_size = 10
+shadow_offset = Vector2(0, 10)
+
+[sub_resource type="Theme" id="Theme_unpv4"]
+default_font = ExtResource("1_hably")
+Button/colors/font_color = Color(0.7868137, 0.5722122, 0.24811688, 1)
+Button/colors/font_outline_color = Color(0, 0, 0, 1)
+Button/constants/outline_size = 10
+Button/font_sizes/font_size = 100
+Button/fonts/font = ExtResource("1_hably")
+Button/styles/normal = SubResource("StyleBoxFlat_sjrcp")
+Label/fonts/font = ExtResource("1_hably")
+
+[node name="BaseParing" type="CanvasLayer" node_paths=PackedStringArray("codon_container", "segment_mRNA", "button_palette", "base_paired_label", "atp_label")]
+script = ExtResource("1_f6cyh")
+green_screen = ExtResource("2_vtusl")
+red_screen = ExtResource("3_vrmx1")
+dna_sequence = "AAAAAAAAAAAA"
+codon_container = NodePath("Control/Base/CodonsContainer")
+segment_mRNA = NodePath("Control/Base/Segment_mRNA")
+button_palette = NodePath("Control/Base/ButtonContainer")
+base_paired_label = NodePath("Control/Base/BASE_PAIRED")
+atp_label = NodePath("Control/Base/ATP_ENERGY")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_unpv4")
+
+[node name="Base" type="NinePatchRect" parent="Control"]
+self_modulate = Color(1.1551381e-06, 0.3803725, 0.34109816, 1)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -567.0
+offset_top = -301.0
+offset_right = 567.0
+offset_bottom = 344.25
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_f6cyh")
+patch_margin_left = 32
+patch_margin_top = 32
+patch_margin_right = 32
+patch_margin_bottom = 32
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
+
+[node name="CodonsContainer" parent="Control/Base" instance=ExtResource("4_sjrcp")]
+layout_mode = 0
+offset_left = 132.0
+offset_top = 57.0
+offset_right = 984.0
+offset_bottom = 157.0
+dna_sequence = "AAAAAAAAAAAA"
+
+[node name="Segment_mRNA" parent="Control/Base" node_paths=PackedStringArray("codon_container") instance=ExtResource("4_unpv4")]
+layout_mode = 0
+offset_left = 308.00006
+offset_top = 179.0
+offset_right = 1029.0
+offset_bottom = 478.00006
+codon_container = NodePath("../CodonsContainer")
+
+[node name="ButtonContainer" parent="Control/Base" node_paths=PackedStringArray("segment_node") instance=ExtResource("5_f6cyh")]
+layout_mode = 1
+offset_left = 273.0
+offset_top = -223.25
+offset_right = -289.0
+offset_bottom = -48.25
+segment_node = NodePath("../Segment_mRNA")
+
+[node name="Title" type="NinePatchRect" parent="Control/Base"]
+self_modulate = Color(0.73242795, 0.63876545, 3.85046e-07, 1)
+layout_mode = 0
+offset_left = 269.0
+offset_top = -39.0
+offset_right = 855.0
+offset_bottom = 51.0
+texture = ExtResource("3_f6cyh")
+patch_margin_left = 32
+patch_margin_top = 32
+patch_margin_right = 32
+patch_margin_bottom = 32
+
+[node name="Label" type="Label" parent="Control/Base/Title"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -75.0
+offset_top = -6.5
+offset_right = 75.0
+offset_bottom = 6.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("1_hably")
+theme_override_font_sizes/font_size = 50
+text = "BASE PARING MINIGAME"
+
+[node name="BASE_PAIRED" type="Label" parent="Control/Base"]
+layout_mode = 0
+offset_left = 43.0
+offset_top = 190.0
+offset_right = 324.0
+offset_bottom = 240.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 60
+text = "PAIRED: 0/4"
+
+[node name="ATP_ENERGY" type="Label" parent="Control/Base"]
+layout_mode = 0
+offset_left = 43.0
+offset_top = 245.0
+offset_right = 324.0
+offset_bottom = 295.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 60
+text = "ATP: "
+
+[node name="INSTRCUTION" type="Label" parent="Control/Base"]
+layout_mode = 0
+offset_left = 817.0
+offset_top = 191.0
+offset_right = 1098.0
+offset_bottom = 412.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 30
+text = "Click a slot in the Codon in the middle of the screen then choose a nitrogen base, after completing paring all three (codon), Press \"Check Pair\""
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="INSTRCUTION2" type="Label" parent="Control/Base"]
+layout_mode = 0
+offset_left = 36.0
+offset_top = 97.0
+offset_right = 123.0
+offset_bottom = 122.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 30
+text = "DNA:"
+horizontal_alignment = 1
+autowrap_mode = 3

@@ -1,0 +1,39 @@
+[gd_scene load_steps=9 format=3 uid="uid://d0grxb27tnrvo"]
+
+[ext_resource type="PackedScene" uid="uid://dj4jfy377e3xv" path="res://scenes/world/map.tscn" id="1_1p641"]
+[ext_resource type="Script" uid="uid://dtwxqbjruct10" path="res://scripts/world/main_game_area.gd" id="1_3rvww"]
+[ext_resource type="PackedScene" uid="uid://ngofvgb0icyd" path="res://scenes/objects/game_level_obj/dna.tscn" id="2_nbmm5"]
+[ext_resource type="PackedScene" uid="uid://clelq7e0gx28h" path="res://scenes/character/player.tscn" id="3_nbmm5"]
+[ext_resource type="PackedScene" uid="uid://cnix0pvgskb7n" path="res://scenes/character/npc/nucleolus_npc.tscn" id="5_8v4mi"]
+[ext_resource type="Resource" uid="uid://b0qislp8g5iya" path="res://plugins/dialogueSystem/game_start.dialogue" id="6_5bg12"]
+[ext_resource type="PackedScene" uid="uid://ca36dl4ja044l" path="res://scenes/objects/game_level_obj/drop_area.tscn" id="7_b1358"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_b1358"]
+radius = 131.06105
+
+[node name="MAIN_GAME_AREA" type="Node2D" node_paths=PackedStringArray("dna_objects")]
+script = ExtResource("1_3rvww")
+dna_objects = [NodePath("Map/dna")]
+
+[node name="Map" parent="." instance=ExtResource("1_1p641")]
+
+[node name="dna" parent="Map" instance=ExtResource("2_nbmm5")]
+position = Vector2(13, -576)
+
+[node name="player" parent="Map" instance=ExtResource("3_nbmm5")]
+position = Vector2(-187, 44)
+
+[node name="NucleolusNPC" parent="Map" node_paths=PackedStringArray("game_level") instance=ExtResource("5_8v4mi")]
+dialogue = ExtResource("6_5bg12")
+game_level = NodePath("../..")
+
+[node name="DNA_SPAWN_POINT" type="Marker2D" parent="Map"]
+
+[node name="ExitSite" parent="Map" instance=ExtResource("7_b1358")]
+position = Vector2(10, 1303)
+accepted_tag = "A"
+
+[node name="CollisionShape2D" parent="Map/ExitSite" index="0"]
+shape = SubResource("CircleShape2D_b1358")
+
+[editable path="Map/ExitSite"]

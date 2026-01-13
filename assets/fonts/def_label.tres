@@ -1,0 +1,32 @@
+[gd_resource type="Theme" load_steps=3 format=3 uid="uid://b2d4en2jrovd1"]
+
+[ext_resource type="FontFile" uid="uid://on5pnthgw80n" path="res://assets/fonts/Stacked pixel.ttf" id="1_kj5yk"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kj5yk"]
+bg_color = Color(0.73333335, 0.6392157, 0, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+shadow_size = 3
+shadow_offset = Vector2(0, 10)
+
+[resource]
+default_font = ExtResource("1_kj5yk")
+default_font_size = 40
+Button/constants/outline_size = 10
+Button/font_sizes/font_size = 50
+Button/fonts/font = ExtResource("1_kj5yk")
+Button/styles/hover = SubResource("StyleBoxFlat_kj5yk")
+Button/styles/normal = SubResource("StyleBoxFlat_kj5yk")
+Button/styles/pressed = SubResource("StyleBoxFlat_kj5yk")
+Label/colors/font_color = Color(1, 0.7019608, 0, 1)
+Label/colors/font_outline_color = Color(0, 0, 0, 1)
+Label/constants/outline_size = 4
+Label/constants/shadow_offset_x = 0
+Label/font_sizes/font_size = 50

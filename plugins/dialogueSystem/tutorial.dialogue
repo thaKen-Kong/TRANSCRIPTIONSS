@@ -1,0 +1,91 @@
+	~ start
+	Nucleolus:
+	    Welcome, researcher! This is the nucleus. 
+	    Our goal is to transcribe DNA into mRNA.
+	    First, let’s find the promoter region (TATA box) on the DNA strand.
+	- Ok, Show Me:
+	    Nucleolus:
+	        Look for the TATA box. Approach it to start.
+	do TutorialManager.dna._on_interact_pre_initiation()
+	- Skip:
+	    Nucleolus:
+	        You can explore the DNA yourself.
+	=> initiation_phase
+
+	~ initiation_phase
+	Nucleolus:
+	    Great! Now, drag the RNA polymerase to the promoter region to start transcription.
+	- Got It:
+	    Nucleolus:
+	        Perfect! This initiates the transcription process.
+	do TutorialManager.dna._on_drop_place_object_placed(active_rnap)
+	- Need Help:
+	    Nucleolus:
+	        Remember, you can grab the RNA polymerase with 'E' and place it on the promoter.
+	=> elongation_phase
+
+	~ elongation_phase
+	Nucleolus:
+	    Excellent! Watch the RNA polymerase move along the DNA. 
+	    It reads the DNA sequence and builds mRNA.
+	- Watch:
+	    Nucleolus:
+	        Notice the empty nitrogen base slots. These will be filled with complementary RNA bases.
+	do TutorialManager.dna._start_elongation()
+	- I Understand:
+	    Nucleolus:
+	        Good! Observe carefully to understand elongation.
+	=> termination_phase
+
+	~ termination_phase
+	Nucleolus:
+	    Once the RNA polymerase reaches the termination site, a minigame will pop up.
+	    Complete it to finish elongation.
+	- Ready:
+	    Nucleolus:
+	        Focus and complete the termination minigame.
+		do TutorialManager.dna._finish_elongation()
+	- Skip:
+	    Nucleolus:
+	        You can try the minigame now.
+	=> base_pairing_phase
+
+	~ base_pairing_phase
+	Nucleolus:
+	    Now, let’s transcribe the DNA sequence into mRNA. 
+	    Remember the base pairing rules:
+	        DNA A → RNA U
+	        DNA T → RNA A
+	        DNA G → RNA C
+	        DNA C → RNA G
+	    Complete the base pairing minigame to synthesize mRNA.
+	- Got It:
+	    Nucleolus:
+	        Fill all empty nitrogen base slots according to these rules.
+	    do DNA._spawn_mRNA()
+	- Need Help:
+	    Nucleolus:
+	        Take your time, follow the rules carefully.
+	=> delivery_phase
+
+	~ delivery_phase
+	Nucleolus:
+	    Well done! Your mRNA is complete. 
+	    Deliver it to the exit site. This is why we call it a "delivery."
+	- Deliver:
+	    Nucleolus:
+	        Drag the packaged mRNA to the exit site.
+	    do ExitSite.show()
+	- Not Yet:
+	    Nucleolus:
+	        You can review the mRNA sequence before delivering.
+	=> repeat_delivery
+
+	~ repeat_delivery
+	Nucleolus:
+	    After delivery, repeat the process until all required mRNA deliveries are complete.
+	- Continue:
+	    Nucleolus:
+	        Return to the DNA to start the next transcription.
+	    do DNA.restart_transcription()
+	=> END

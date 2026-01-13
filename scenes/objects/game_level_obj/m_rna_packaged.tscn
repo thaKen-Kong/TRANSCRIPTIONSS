@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://bwag45dyvraue"]
+
+[ext_resource type="PackedScene" uid="uid://cd2m5cl2mj1qq" path="res://scenes/objects/game_level_obj/grabbable_object.tscn" id="1_rssat"]
+[ext_resource type="Texture2D" uid="uid://b4ny7ojl8dfqm" path="res://assets/world/Assets/packaged box close.png" id="2_rssat"]
+[ext_resource type="FontFile" uid="uid://on5pnthgw80n" path="res://assets/fonts/Stacked pixel.ttf" id="3_edw7n"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rssat"]
+radius = 157.05095
+
+[node name="mRNA_PACKAGED" instance=ExtResource("1_rssat")]
+object_tag = "A"
+
+[node name="Sprite2D" parent="." index="0"]
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("2_rssat")
+
+[node name="CollisionShape2D" parent="." index="1"]
+position = Vector2(-2.5, 13)
+
+[node name="CollisionShape2D" parent="GrabArea" index="0"]
+shape = SubResource("CircleShape2D_rssat")
+
+[node name="Label" type="Label" parent="." index="3"]
+offset_left = -130.0
+offset_top = -182.0
+offset_right = 132.0
+offset_bottom = -149.0
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("3_edw7n")
+theme_override_font_sizes/font_size = 40
+text = "PACKAGED MRNA"
+horizontal_alignment = 1
+vertical_alignment = 1

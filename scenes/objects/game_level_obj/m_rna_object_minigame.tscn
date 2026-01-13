@@ -1,0 +1,36 @@
+[gd_scene load_steps=9 format=3 uid="uid://cawrhllveiwm0"]
+
+[ext_resource type="Texture2D" uid="uid://gfn10vgeu4xq" path="res://assets/rush/Untitled52_20260108195355.png" id="1_efhms"]
+[ext_resource type="Script" uid="uid://cdye27ao6lbix" path="res://scripts/objects/game_level/m_rna_object_minigame.gd" id="1_jgw7q"]
+[ext_resource type="PackedScene" uid="uid://c8r56i0x3t4o2" path="res://scenes/minigames/base_paring.tscn" id="2_6n321"]
+[ext_resource type="PackedScene" uid="uid://dcmteki0o3m78" path="res://scenes/utils/interaction_area.tscn" id="3_6n321"]
+[ext_resource type="PackedScene" uid="uid://bwag45dyvraue" path="res://scenes/objects/game_level_obj/m_rna_packaged.tscn" id="3_waigs"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fcaif"]
+atlas = ExtResource("1_efhms")
+region = Rect2(150, 15, 1235, 183)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jgw7q"]
+size = Vector2(1215, 64)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fpc5k"]
+size = Vector2(1248, 102)
+
+[node name="mRNA_OBJECT_MINIGAME" type="StaticBody2D"]
+script = ExtResource("1_jgw7q")
+minigame_scene = ExtResource("2_6n321")
+box_scene = ExtResource("3_waigs")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_fcaif")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-4.5, 22)
+shape = SubResource("RectangleShape2D_jgw7q")
+
+[node name="InteractionArea" parent="." instance=ExtResource("3_6n321")]
+action_name = "PAIR BASES"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea"]
+position = Vector2(0, 41)
+shape = SubResource("RectangleShape2D_fpc5k")

@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://buatmdl28dk8e"]
+
+[ext_resource type="Script" uid="uid://75hxu0km1sry" path="res://scripts/objects/game_level/BaseParingMinigameObjects/codon(dna_sequence_container.gd" id="1_kdlfw"]
+[ext_resource type="PackedScene" uid="uid://bavh16tjw56ae" path="res://scenes/objects/game_level_obj/BaseParingMinigameObjects/codon_box.tscn" id="2_ttctk"]
+
+[node name="CodonsContainer" type="GridContainer" node_paths=PackedStringArray("codon_boxes")]
+offset_right = 852.0
+offset_bottom = 100.0
+columns = 5
+script = ExtResource("1_kdlfw")
+codon_boxes = [NodePath("CodonBox1"), NodePath("CodonBox2"), NodePath("CodonBox3"), NodePath("CodonBox4")]
+
+[node name="CodonBox1" parent="." instance=ExtResource("2_ttctk")]
+layout_mode = 2
+
+[node name="CodonBox2" parent="." instance=ExtResource("2_ttctk")]
+layout_mode = 2
+
+[node name="CodonBox3" parent="." instance=ExtResource("2_ttctk")]
+layout_mode = 2
+
+[node name="CodonBox4" parent="." instance=ExtResource("2_ttctk")]
+layout_mode = 2

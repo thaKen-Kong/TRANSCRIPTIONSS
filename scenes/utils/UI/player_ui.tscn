@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3 uid="uid://cps6kipdhiyx"]
+
+[ext_resource type="Script" uid="uid://dcmjj2ag4mlnq" path="res://scripts/utils/ui/player_ui.gd" id="1_4lyb8"]
+[ext_resource type="Texture2D" uid="uid://c6scl04psfvm7" path="res://assets/ui_interface/Wenrexa Interface UI KIT #4/PNG/ProgressBar_01/BarV1_Bar.png" id="2_plq6t"]
+[ext_resource type="Texture2D" uid="uid://clt4nhsj1q118" path="res://assets/ui_interface/Wenrexa Interface UI KIT #4/PNG/ProgressBar_01/BarV1_ProgressBarBorder.png" id="3_hno6o"]
+[ext_resource type="Texture2D" uid="uid://bdlmy350on5h" path="res://assets/ui_interface/Wenrexa Interface UI KIT #4/PNG/BarV1_ProgressBar.png" id="4_qoh0o"]
+
+[node name="player_ui" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_4lyb8")
+
+[node name="ProgressBar" type="TextureProgressBar" parent="."]
+layout_mode = 0
+offset_left = 22.0
+offset_top = 657.0
+offset_right = 298.0
+offset_bottom = 684.0
+rotation = -1.5707964
+texture_under = ExtResource("2_plq6t")
+texture_over = ExtResource("3_hno6o")
+texture_progress = ExtResource("4_qoh0o")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 13.0
+offset_top = 358.0
+offset_right = 53.0
+offset_bottom = 381.0
+text = "100"
+horizontal_alignment = 1
+vertical_alignment = 1

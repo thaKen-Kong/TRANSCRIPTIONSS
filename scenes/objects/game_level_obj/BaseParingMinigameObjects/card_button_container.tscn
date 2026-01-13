@@ -1,0 +1,63 @@
+[gd_scene load_steps=5 format=3 uid="uid://cc8ub3lho657x"]
+
+[ext_resource type="FontFile" uid="uid://on5pnthgw80n" path="res://assets/fonts/Stacked pixel.ttf" id="1_212uc"]
+[ext_resource type="Script" uid="uid://46s20gxfa3am" path="res://scripts/objects/game_level/BaseParingMinigameObjects/card_button_container.gd" id="2_2gx2j"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sjrcp"]
+bg_color = Color(0.8352941, 0.79607844, 0.49803922, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+shadow_size = 10
+shadow_offset = Vector2(0, 10)
+
+[sub_resource type="Theme" id="Theme_212uc"]
+default_font = ExtResource("1_212uc")
+Button/colors/font_color = Color(0.7868137, 0.5722122, 0.24811688, 1)
+Button/colors/font_outline_color = Color(0, 0, 0, 1)
+Button/constants/outline_size = 10
+Button/font_sizes/font_size = 100
+Button/fonts/font = ExtResource("1_212uc")
+Button/styles/normal = SubResource("StyleBoxFlat_sjrcp")
+Label/fonts/font = ExtResource("1_212uc")
+
+[node name="ButtonContainer" type="HBoxContainer"]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -720.0
+offset_right = -708.0
+offset_bottom = -545.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = SubResource("Theme_212uc")
+theme_override_constants/separation = 20
+alignment = 1
+script = ExtResource("2_2gx2j")
+
+[node name="A" type="Button" parent="."]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_212uc")
+theme_override_font_sizes/font_size = 100
+text = "A"
+
+[node name="U" type="Button" parent="."]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+text = "U"
+
+[node name="C" type="Button" parent="."]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+text = "C"
+
+[node name="G" type="Button" parent="."]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+text = "G"

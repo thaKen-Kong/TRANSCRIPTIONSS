@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://b402nj0220yat"]
+
+[ext_resource type="Script" uid="uid://c2bx2sotqo7ba" path="res://scripts/world/buildings/atp_factory.gd" id="1_4o2iy"]
+[ext_resource type="Texture2D" uid="uid://cscq8dhe53sv3" path="res://assets/world/Assets/ATP_factory.png" id="1_lhuhx"]
+[ext_resource type="PackedScene" uid="uid://dcmteki0o3m78" path="res://scenes/utils/interaction_area.tscn" id="2_jfrng"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4o2iy"]
+size = Vector2(473, 201)
+
+[node name="ATP_FACTORY" type="StaticBody2D"]
+script = ExtResource("1_4o2iy")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-168, 176, -222, 190, -225, 151, -216, 139, -209, 116, -240, 107, -238, 76, -209, 83, -205, 27, 256, 33, 254, 85, 260, 146, 219, 182, 176, 198, 125, 201, 72, 176, 76, 134, -161, 138)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_lhuhx")
+
+[node name="InteractionArea" parent="." instance=ExtResource("2_jfrng")]
+action_name = "COLLECT ATP"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea"]
+position = Vector2(10.5, 158.5)
+shape = SubResource("RectangleShape2D_4o2iy")

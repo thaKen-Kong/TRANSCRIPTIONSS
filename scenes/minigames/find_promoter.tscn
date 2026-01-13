@@ -1,0 +1,190 @@
+[gd_scene load_steps=9 format=3 uid="uid://c7md4vxetlvi"]
+
+[ext_resource type="Script" uid="uid://7ql8rhowjgi2" path="res://scripts/minigames/find_promoter.gd" id="1_c55li"]
+[ext_resource type="Texture2D" uid="uid://bvl0ovb44jxj8" path="res://assets/rush/Untitled43_20260105180103.png" id="2_h0lbc"]
+[ext_resource type="PackedScene" uid="uid://w4mfrgibb6s3" path="res://scenes/utils/screen_flash/green_flash.tscn" id="2_p8mbj"]
+[ext_resource type="PackedScene" uid="uid://dd5n8ri2bhg0u" path="res://scenes/utils/screen_flash/red_flash.tscn" id="3_nojyo"]
+[ext_resource type="Texture2D" uid="uid://6upf1qlcc4kb" path="res://assets/ui_borders/PNG/Double/Transparent border/panel-transparent-border-014.png" id="4_4p1wj"]
+[ext_resource type="FontFile" uid="uid://on5pnthgw80n" path="res://assets/fonts/Stacked pixel.ttf" id="4_c55li"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4p1wj"]
+atlas = ExtResource("2_h0lbc")
+region = Rect2(955, 4080, 2804, 402)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_idbhg"]
+atlas = ExtResource("2_h0lbc")
+region = Rect2(4113, 1807, 193, 992)
+
+[node name="CanvasLayer" type="CanvasLayer"]
+script = ExtResource("1_c55li")
+green_screen = ExtResource("2_p8mbj")
+red_screen = ExtResource("3_nojyo")
+
+[node name="base" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="NinePatchRect" type="NinePatchRect" parent="base"]
+self_modulate = Color(0, 0.38039216, 0.34117648, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 95.0
+offset_top = 173.0
+offset_right = -107.0
+offset_bottom = -161.99988
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_4p1wj")
+patch_margin_left = 64
+patch_margin_top = 64
+patch_margin_right = 64
+patch_margin_bottom = 64
+
+[node name="Dna" type="TextureRect" parent="base/NinePatchRect"]
+self_modulate = Color(1, 1, 1, 0.5254902)
+layout_mode = 0
+offset_left = -863.0
+offset_top = -12.0
+offset_right = 1941.0
+offset_bottom = 390.0
+texture = SubResource("AtlasTexture_4p1wj")
+
+[node name="TextureRect" type="TextureRect" parent="base/NinePatchRect"]
+self_modulate = Color(1, 1, 1, 0.65882355)
+layout_mode = 0
+offset_left = 37.0
+offset_top = 289.0
+offset_right = 230.0
+offset_bottom = 1281.0
+rotation = -1.5707964
+texture = SubResource("AtlasTexture_idbhg")
+
+[node name="DNA_Label" type="Label" parent="base/NinePatchRect"]
+custom_minimum_size = Vector2(600, 50)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 57.0
+offset_top = 169.0
+offset_right = -61.0
+offset_bottom = -166.00012
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("4_c55li")
+theme_override_font_sizes/font_size = 30
+text = "ATATATCCGTCATCTAATCGATAGTGAGATCCCACCCAAATTCCCTCACTCTCGGCGTCAACGA"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DNA_SEQUENCE" type="Label" parent="base/NinePatchRect"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -92.0
+offset_top = 114.0
+offset_right = 92.0
+offset_bottom = 164.0
+grow_horizontal = 2
+mouse_filter = 0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("4_c55li")
+theme_override_font_sizes/font_size = 30
+text = "DNA SEQUENCE:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DNA_SEQUENCE2" type="Label" parent="base/NinePatchRect"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -495.0
+offset_top = 295.0
+offset_right = -159.0
+offset_bottom = 345.0
+grow_horizontal = 2
+mouse_filter = 0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("4_c55li")
+theme_override_font_sizes/font_size = 30
+text = "FIND THE PROMOTER REGION"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label" type="Label" parent="base/NinePatchRect"]
+visible = false
+layout_mode = 0
+offset_left = 516.0
+offset_top = 128.0
+offset_right = 626.0
+offset_bottom = 161.0
+theme_override_colors/font_color = Color(1.0348111e-06, 0.72033894, 1.540184e-06, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_fonts/font = ExtResource("4_c55li")
+theme_override_font_sizes/font_size = 40
+text = "FOUND!"
+
+[node name="atp_amount" type="Label" parent="base/NinePatchRect"]
+layout_mode = 0
+offset_left = 865.0
+offset_top = 44.99997
+offset_right = 1062.0
+offset_bottom = 76.99997
+rotation = 0.2617994
+theme_override_colors/font_color = Color(1, 1, 0.21568628, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("4_c55li")
+theme_override_font_sizes/font_size = 39
+text = "ATP: <null>"
+
+[node name="title" type="NinePatchRect" parent="base/NinePatchRect"]
+self_modulate = Color(0.73333335, 0.6392157, 0, 1)
+layout_mode = 0
+offset_left = 262.0
+offset_top = -53.0
+offset_right = 864.0
+offset_bottom = 83.0
+texture = ExtResource("4_4p1wj")
+patch_margin_left = 64
+patch_margin_top = 64
+patch_margin_right = 64
+patch_margin_bottom = 64
+
+[node name="minigame_title" type="Label" parent="base/NinePatchRect/title"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -280.0
+offset_top = -21.0
+offset_right = 280.0
+offset_bottom = 21.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("4_c55li")
+theme_override_font_sizes/font_size = 40
+text = "PRE-INITIATION MINIGAME"
+horizontal_alignment = 1
+vertical_alignment = 1

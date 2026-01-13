@@ -1,0 +1,35 @@
+[gd_scene load_steps=6 format=3 uid="uid://cqr4w4eoyx67y"]
+
+[ext_resource type="PackedScene" uid="uid://ca36dl4ja044l" path="res://scenes/objects/game_level_obj/drop_area.tscn" id="1_v1rpp"]
+[ext_resource type="Texture2D" uid="uid://bvl0ovb44jxj8" path="res://assets/rush/Untitled43_20260105180103.png" id="2_c0qd7"]
+[ext_resource type="FontFile" uid="uid://on5pnthgw80n" path="res://assets/fonts/Stacked pixel.ttf" id="3_ljjlk"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_c0qd7"]
+radius = 132.03409
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ljjlk"]
+atlas = ExtResource("2_c0qd7")
+region = Rect2(4039, 862, 310, 397)
+
+[node name="PROMOTER_REGION" instance=ExtResource("1_v1rpp")]
+accepted_tag = "RNA POLYMERASE"
+
+[node name="CollisionShape2D" parent="." index="0"]
+shape = SubResource("CircleShape2D_c0qd7")
+
+[node name="Sprite2D" parent="." index="1"]
+texture = SubResource("AtlasTexture_ljjlk")
+
+[node name="Label" type="Label" parent="." index="2"]
+offset_left = -146.0
+offset_top = -221.0
+offset_right = 146.0
+offset_bottom = -188.0
+theme_override_colors/font_color = Color(1, 0.7647059, 0.039215688, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 9
+theme_override_fonts/font = ExtResource("3_ljjlk")
+theme_override_font_sizes/font_size = 40
+text = "PROMOTER REGION"
+horizontal_alignment = 1
+vertical_alignment = 1

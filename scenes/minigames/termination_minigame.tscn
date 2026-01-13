@@ -1,0 +1,147 @@
+[gd_scene load_steps=14 format=3 uid="uid://dorrtahxg5r22"]
+
+[ext_resource type="Script" uid="uid://b6aslblj6mnid" path="res://scripts/minigames/termination_minigame.gd" id="1_e12gb"]
+[ext_resource type="PackedScene" uid="uid://w4mfrgibb6s3" path="res://scenes/utils/screen_flash/green_flash.tscn" id="2_1m74j"]
+[ext_resource type="Texture2D" uid="uid://bvl0ovb44jxj8" path="res://assets/rush/Untitled43_20260105180103.png" id="2_hw7p2"]
+[ext_resource type="PackedScene" uid="uid://dd5n8ri2bhg0u" path="res://scenes/utils/screen_flash/red_flash.tscn" id="3_vds7g"]
+[ext_resource type="Texture2D" uid="uid://6upf1qlcc4kb" path="res://assets/ui_borders/PNG/Double/Transparent border/panel-transparent-border-014.png" id="4_3n8qa"]
+[ext_resource type="Theme" uid="uid://b2d4en2jrovd1" path="res://assets/fonts/def_label.tres" id="4_dwx5y"]
+[ext_resource type="Texture2D" uid="uid://c6iqkn6tpfwuc" path="res://assets/ui_interface/Wenrexa Interface UI KIT #4/PNG/ProgressBar_02/BarV2_Bar.png" id="6_rgj4u"]
+[ext_resource type="Texture2D" uid="uid://clt4nhsj1q118" path="res://assets/ui_interface/Wenrexa Interface UI KIT #4/PNG/ProgressBar_01/BarV1_ProgressBarBorder.png" id="7_0cmoc"]
+[ext_resource type="FontFile" uid="uid://on5pnthgw80n" path="res://assets/fonts/Stacked pixel.ttf" id="7_1m74j"]
+[ext_resource type="Texture2D" uid="uid://d2nuucathutbl" path="res://assets/ui_interface/Wenrexa Interface UI KIT #4/PNG/ProgressBar_04/BarV4_ProgressBar.png" id="8_vwvus"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rkxav"]
+atlas = ExtResource("2_hw7p2")
+region = Rect2(955, 4080, 2804, 402)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dwx5y"]
+atlas = ExtResource("2_hw7p2")
+region = Rect2(4097, 511, 217, 277)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hw7p2"]
+atlas = ExtResource("2_hw7p2")
+region = Rect2(4026, 1370, 305, 367)
+
+[node name="TerminationMinigame" type="CanvasLayer"]
+script = ExtResource("1_e12gb")
+green_screen = ExtResource("2_1m74j")
+red_screen = ExtResource("3_vds7g")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CONTAINER" type="NinePatchRect" parent="Control"]
+self_modulate = Color(0, 0.38039216, 0.34117648, 1)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -595.5
+offset_top = -291.5
+offset_right = 595.5
+offset_bottom = 335.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_3n8qa")
+patch_margin_left = 64
+patch_margin_top = 64
+patch_margin_right = 64
+patch_margin_bottom = 64
+
+[node name="DNA" type="Sprite2D" parent="Control/CONTAINER"]
+self_modulate = Color(1, 1, 1, 0.49803922)
+position = Vector2(-558.5, 272.5)
+scale = Vector2(0.91155493, 0.8830846)
+texture = SubResource("AtlasTexture_rkxav")
+
+[node name="RNAPVisual" type="Sprite2D" parent="Control/CONTAINER"]
+position = Vector2(585.5, 269.5)
+texture = SubResource("AtlasTexture_dwx5y")
+
+[node name="TeminationVisual" type="Sprite2D" parent="Control/CONTAINER"]
+self_modulate = Color(1, 1, 1, 0.7294118)
+position = Vector2(584.5, 270.5)
+texture = SubResource("AtlasTexture_hw7p2")
+
+[node name="ProgressBar" type="TextureProgressBar" parent="Control/CONTAINER"]
+layout_mode = 0
+offset_left = 764.5
+offset_top = 506.5
+offset_right = 1038.5
+offset_bottom = 531.5
+rotation = -1.5707964
+scale = Vector2(1.5, 1.5)
+texture_under = ExtResource("6_rgj4u")
+texture_over = ExtResource("7_0cmoc")
+texture_progress = ExtResource("8_vwvus")
+
+[node name="Button" type="Button" parent="Control/CONTAINER"]
+layout_mode = 0
+offset_left = 843.5
+offset_top = 126.5
+offset_right = 1131.5
+offset_bottom = 474.5
+theme = ExtResource("4_dwx5y")
+text = "PRESS SPACE!!"
+
+[node name="Label" type="Label" parent="Control/CONTAINER"]
+layout_mode = 0
+offset_left = 60.5
+offset_top = 550.5
+offset_right = 272.5
+offset_bottom = 596.5
+theme = ExtResource("4_dwx5y")
+text = "ATP: "
+vertical_alignment = 1
+
+[node name="Timer" type="Label" parent="Control/CONTAINER"]
+layout_mode = 0
+offset_left = 58.5
+offset_top = 502.5
+offset_right = 286.5
+offset_bottom = 544.5
+theme = ExtResource("4_dwx5y")
+text = "TIME LEFT:"
+
+[node name="TITLE" type="NinePatchRect" parent="Control"]
+self_modulate = Color(0.73333335, 0.6392157, 0, 1)
+layout_mode = 0
+offset_left = 407.0
+offset_top = 17.0
+offset_right = 888.0
+offset_bottom = 154.0
+texture = ExtResource("4_3n8qa")
+patch_margin_left = 64
+patch_margin_top = 64
+patch_margin_right = 64
+patch_margin_bottom = 64
+
+[node name="Label" type="Label" parent="Control/TITLE"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -131.0
+offset_top = -21.0
+offset_right = 131.0
+offset_bottom = 21.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("7_1m74j")
+theme_override_font_sizes/font_size = 50
+text = "TERMINATION"
+horizontal_alignment = 1
+vertical_alignment = 1

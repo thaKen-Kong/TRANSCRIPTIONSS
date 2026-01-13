@@ -1,0 +1,63 @@
+[gd_scene load_steps=10 format=3 uid="uid://clelq7e0gx28h"]
+
+[ext_resource type="Script" uid="uid://cp5criar8a6iw" path="res://scripts/character/player.gd" id="1_tum32"]
+[ext_resource type="Texture2D" uid="uid://nn8c2iu0txxo" path="res://icon.svg" id="2_0vjlc"]
+[ext_resource type="Script" uid="uid://7ojl0waewmjs" path="res://scenes/utils/screen_shake.gd" id="2_wmtbp"]
+[ext_resource type="PackedScene" uid="uid://5baoh0edu5mn" path="res://scenes/states/fsm.tscn" id="3_bnvp8"]
+[ext_resource type="Script" uid="uid://b02jxufc2le6h" path="res://scripts/states/player_states/idle.gd" id="4_1y732"]
+[ext_resource type="Script" uid="uid://ihqomvprq5ua" path="res://scripts/states/player_states/move.gd" id="5_1y732"]
+[ext_resource type="PackedScene" uid="uid://cps6kipdhiyx" path="res://scenes/utils/UI/player_ui.tscn" id="6_erpy8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bnvp8"]
+size = Vector2(62, 62)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_erpy8"]
+radius = 50.24938
+
+[node name="player" type="CharacterBody2D" node_paths=PackedStringArray("player_ui", "grab_detector") groups=["player"]]
+collision_layer = 2
+collision_mask = 509
+script = ExtResource("1_tum32")
+player_ui = NodePath("CanvasLayer/player_ui")
+speed = 200.0
+grab_detector = NodePath("GrabDetector")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(0.6, 0.6)
+position_smoothing_enabled = true
+position_smoothing_speed = 4.0
+script = ExtResource("2_wmtbp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_bnvp8")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_0vjlc")
+
+[node name="FSM" parent="." node_paths=PackedStringArray("initial_state", "entity") instance=ExtResource("3_bnvp8")]
+initial_state = NodePath("idle")
+entity = NodePath("..")
+
+[node name="idle" type="Node" parent="FSM"]
+script = ExtResource("4_1y732")
+metadata/_custom_type_script = "uid://b02jxufc2le6h"
+
+[node name="move" type="Node" parent="FSM"]
+script = ExtResource("5_1y732")
+metadata/_custom_type_script = "uid://ihqomvprq5ua"
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." groups=["ui"]]
+
+[node name="player_ui" parent="CanvasLayer" instance=ExtResource("6_erpy8")]
+
+[node name="GrabDetector" type="Area2D" parent="."]
+collision_layer = 256
+collision_mask = 512
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GrabDetector"]
+shape = SubResource("CircleShape2D_erpy8")
+debug_color = Color(1, 1, 1, 0.41960785)
+
+[connection signal="area_entered" from="GrabDetector" to="." method="_on_grab_area_entered"]
+[connection signal="area_exited" from="GrabDetector" to="." method="_on_grab_area_exited"]
