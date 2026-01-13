@@ -1,5 +1,5 @@
 extends Node2D
-class_name GAME_LEVEL
+class_name GAME
 
 # =========================
 # NODES
@@ -72,7 +72,7 @@ func start_level() -> void:
 
 	dna.global_position = dna_spawn_point.global_position
 	dna.show()
-	dna._spawn_self()
+	dna._spawn_self(dna_spawn_point.global_position)
 
 	print("Level started.")
 

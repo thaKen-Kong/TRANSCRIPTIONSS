@@ -8,7 +8,8 @@ class_name Nucleolus
 @export var dialogue: DialogueResource
 @export var start_title: String = "start"
 
-@export var game_level : Node
+@export var game_level : GAME_LEVEL
+
 
 var node = self
 
