@@ -6,7 +6,7 @@ func _on_play_pressed():
 	await get_tree().create_timer(1).timeout
 	
 	TransitionManager.change_scene(
-	"res://scenes/world/hub.tscn"
+	"res://scenes/world/LEVEL/game_area.tscn"
 )
 
 

@@ -9,8 +9,8 @@ enum PHASES {
 	PRE_INITIATION,
 	INITIATION,
 	ELONGATION,
-	PARING,
-	TERMINATION
+	TERMINATION,
+	PARING
 }
 
 var current_phase: PHASES = PHASES.PRE_INITIATION
@@ -24,14 +24,16 @@ var deliveries_done: int = 0
 @export var mRNA_scene: PackedScene
 @export var rna_polymerase_scene: PackedScene
 @export var rna_spawn_position: Vector2 = Vector2(0, -64)
-@export var elongation_speed: float = 150.0 # pixels per second
+@export var elongation_speed: float = 300
 
 @export var promoter_region_minigame: PackedScene
 @export var rna_polymerase_minigame: PackedScene
 @export var pre_termination_minigame: PackedScene
 @export var termination_minigame_scene: PackedScene
+@export var mRNA_trigger_scene: PackedScene
+@export var base_pairing_minigame_scene: PackedScene
 
-@export var tutorial_mode: bool = false # Tutorial flag
+@export var tutorial_mode: bool = false
 
 # =========================
 # NODES
@@ -39,16 +41,12 @@ var deliveries_done: int = 0
 @onready var drop_place: DropPlace = $PROMOTER_REGION
 @onready var termination_visual: Sprite2D = $TerminationSite
 @onready var mRNA_Spawn: Marker2D = $mRNA_SPAWN_POINT
-@onready var dna_template_strand: Label = $"PhaseLabel/Control/TEMPLATE/DNA TEMPLATE STRAND"
-@onready var delivered_label: Label = $PhaseLabel/Control/TaskBar/DELIVERED
-@onready var timer_label: Label = $PhaseLabel/Control/TaskBar/TIME_LEFT
 @onready var rnap_spawn: Marker2D = $RNAP_SPAWNPOINT
 @onready var rna_polymerase_texture: Sprite2D = $TerminationSite/RnaPolymerase
-
-@onready var termination_marker : Marker2D = $TerminationMarker
-
+@onready var termination_marker: Marker2D = $TerminationMarker
 @onready var dna_start = $"dna-Start"
 @onready var dna_end = $"dna-End"
+
 # =========================
 # STATE
 var active_rnap: Node2D
@@ -57,13 +55,11 @@ var spawned_nodes: Array[Node] = []
 var _interaction_locked: bool = false
 var _cutscene_node: Node = null
 var _elongation_target: Vector2
+var _mRNA_trigger_spawned: bool = false
 
 # =========================
 func _ready() -> void:
-	# Start DNA offscreen
 	position = Vector2(0, -2000)
-
-	delivered_label.text = "DELIVERED: %d/%d" % [deliveries_done, deliveries_required]
 	termination_visual.hide()
 	rna_polymerase_texture.hide()
 
@@ -73,46 +69,57 @@ func _ready() -> void:
 
 	if interaction_area:
 		interaction_area.interact = Callable(self, "_on_interact_pre_initiation")
-		interaction_area.set_process_input(true)
+		interaction_area.set_process_input(false)
+		_hide_interaction_area()
 
-	# Tutorial: get cutscene node from parent
 	if tutorial_mode and get_parent():
 		_cutscene_node = get_parent().get_node_or_null("Cutscene")
 
 	_setup_phase(current_phase)
 
 # =========================
-# PHASE MANAGEMENT
 func _setup_phase(phase: PHASES) -> void:
+	current_phase = phase
+
 	match phase:
 		PHASES.PRE_INITIATION:
-			if interaction_area:
-				interaction_area.set_process_input(true)
-				_interaction_locked = false
-		PHASES.INITIATION:
-			if interaction_area:
-				interaction_area.set_process_input(false)
-		PHASES.ELONGATION:
-			if interaction_area:
-				interaction_area.set_process_input(false)
-			_start_elongation()
-		PHASES.PARING:
-			if interaction_area:
-				interaction_area.set_process_input(false)
-			_spawn_mRNA()
-		PHASES.TERMINATION:
-			if interaction_area:
-				interaction_area.set_process_input(false)
+			_interaction_locked = false
+			_show_interaction_area()
+			interaction_area.set_process_input(true)
+		PHASES.INITIATION, PHASES.ELONGATION, PHASES.TERMINATION, PHASES.PARING:
+			_interaction_locked = true
+			_hide_interaction_area()
+			interaction_area.set_process_input(false)
+			if phase == PHASES.ELONGATION:
+				_start_elongation()
+
+# =========================
+# INTERACTION AREA CONTROL
+func _show_interaction_area() -> void:
+	if not interaction_area:
+		return
+	interaction_area.show_outline(true)
+	interaction_area.show_label(true)
+	interaction_area.monitoring = true
+	interaction_area.monitorable = true
+
+func _hide_interaction_area() -> void:
+	if not interaction_area:
+		return
+	interaction_area.show_outline(false)
+	interaction_area.show_label(false)
+	interaction_area.monitoring = false
+	interaction_area.monitorable = false
 
 # =========================
 # PLAYER INTERACTION
-func _on_interact_pre_initiation() -> void:
+func _on_interact_pre_initiation(player: Node2D) -> void:
 	if _interaction_locked:
 		return
 
 	_interaction_locked = true
-	if interaction_area:
-		interaction_area.set_process_input(false)
+	_hide_interaction_area()
+	interaction_area.set_process_input(false)
 
 	if promoter_region_minigame:
 		var minigame_instance = promoter_region_minigame.instantiate()
@@ -120,13 +127,9 @@ func _on_interact_pre_initiation() -> void:
 		spawned_nodes.append(minigame_instance)
 		minigame_instance.minigame_finished.connect(_on_promoter_minigame_finished)
 
-	# Tutorial: Cutscene for promoter region appearing
-	if tutorial_mode and _cutscene_node:
-		_cutscene_node.play([func(): _cutscene_focus_node(drop_place, 1.0)])
-
+# =========================
 func _on_promoter_minigame_finished(dna_sequence: String, promoter_index: int) -> void:
 	current_phase = PHASES.INITIATION
-	dna_template_strand.text = dna_sequence_template
 
 	if rna_polymerase_scene:
 		active_rnap = rna_polymerase_scene.instantiate()
@@ -134,16 +137,12 @@ func _on_promoter_minigame_finished(dna_sequence: String, promoter_index: int) -
 		spawned_nodes.append(active_rnap)
 		active_rnap.global_position = global_position + rna_spawn_position
 
-		# Tutorial: Cutscene for RNA polymerase spawn
-		if tutorial_mode and _cutscene_node:
-			_cutscene_node.play([func(): _cutscene_focus_node(active_rnap, 1.0)])
-
 	if drop_place:
 		drop_place.show()
 
-	interaction_area.set_process_input(true)
 	_setup_phase(current_phase)
 
+# =========================
 func _on_drop_place_object_placed(obj: GrabbableObject) -> void:
 	if current_phase != PHASES.INITIATION:
 		return
@@ -163,45 +162,45 @@ func _on_drop_place_object_placed(obj: GrabbableObject) -> void:
 		spawned_nodes.append(mini)
 
 # =========================
+# PHASE COMPLETION
 func _on_phase_completed(phase_name: String) -> void:
 	emit_signal("minigame_completed", phase_name)
 
-	if interaction_area:
-		interaction_area.set_process_input(false)
+	var player = get_tree().get_first_node_in_group("player")
+	if player:
+		player.update_phase_display(phase_name)
 
 	match phase_name:
 		"PRE_INITIATION":
-			current_phase = PHASES.INITIATION
-			if rna_polymerase_scene:
-				active_rnap = rna_polymerase_scene.instantiate()
-				add_child(active_rnap)
-				spawned_nodes.append(active_rnap)
-				active_rnap.global_position = rnap_spawn.global_position
-			if drop_place:
-				drop_place.show()
+			_setup_phase(PHASES.INITIATION)
 		"INITIATION":
 			if drop_place:
 				drop_place.hide()
-			current_phase = PHASES.ELONGATION
+			_setup_phase(PHASES.ELONGATION)
 			termination_visual.show()
-			_start_elongation()
+		"ELONGATION":
+			_setup_phase(PHASES.TERMINATION)
+		"TERMINATION":
+			_setup_phase(PHASES.PARING)
+			if not _mRNA_trigger_spawned and mRNA_trigger_scene:
+				var trigger = mRNA_trigger_scene.instantiate()
+				add_child(trigger)
+				spawned_nodes.append(trigger)
+				trigger.global_position = mRNA_Spawn.global_position
+				trigger.dna_sequence = dna_sequence_template
+				_mRNA_trigger_spawned = true
+		"PARING":
+			pass
 
 # =========================
-# ELONGATION: Direct movement to termination site
+# ELONGATION
 func _start_elongation() -> void:
 	if not active_rnap or not termination_visual:
-		push_warning("No active RNA polymerase or termination site to start elongation.")
+		push_warning("No active RNA polymerase or termination site.")
 		return
 
 	_elongation_target = termination_marker.global_position
 	active_rnap.global_position = rnap_spawn.global_position
-
-	var bar := active_rnap.get_node_or_null("ProgressBar")
-	if bar:
-		bar.value = 0
-		bar.visible = true
-		bar.modulate.a = 1.0
-
 	elongating = true
 
 	if rna_polymerase_texture:
@@ -213,14 +212,10 @@ func _process(delta: float) -> void:
 
 	var dir = (_elongation_target - active_rnap.global_position).normalized()
 	var distance = active_rnap.global_position.distance_to(_elongation_target)
-	var step = elongation_speed * delta
-
-	if step > distance:
-		step = distance
+	var step = min(elongation_speed * delta, distance)
 	active_rnap.global_position += dir * step
 	active_rnap.rotation = dir.angle()
 
-	# Update ProgressBar
 	var bar := active_rnap.get_node_or_null("ProgressBar")
 	if bar:
 		var total_distance = (global_position + rna_spawn_position).distance_to(_elongation_target)
@@ -229,10 +224,8 @@ func _process(delta: float) -> void:
 	if distance <= 1.0:
 		_finish_elongation()
 
-# =========================
 func _finish_elongation() -> void:
 	elongating = false
-
 	if is_instance_valid(active_rnap):
 		active_rnap.queue_free()
 	active_rnap = null
@@ -243,7 +236,6 @@ func _finish_elongation() -> void:
 		var tween = get_tree().create_tween()
 		tween.tween_property(rna_polymerase_texture, "modulate:a", 1.0, 0.3)
 
-	# Trigger pre-termination and termination minigames
 	if pre_termination_minigame:
 		var pre = pre_termination_minigame.instantiate()
 		add_child(pre)
@@ -256,54 +248,12 @@ func _finish_elongation() -> void:
 
 	_on_phase_completed("ELONGATION")
 
-# =========================
-# TERMINATION MINIGAME
 func _on_termination_minigame_complete(success: bool) -> void:
-	current_phase = PHASES.PARING
-	termination_visual.show()
-	_setup_phase(current_phase)
+	_on_phase_completed("TERMINATION")
 
 # =========================
-# mRNA SPAWN
-func _spawn_mRNA() -> void:
-	if not mRNA_scene:
-		push_error("No mRNA_scene assigned!")
-		return
-	var mRNA_instance = mRNA_scene.instantiate()
-	add_child(mRNA_instance)
-	spawned_nodes.append(mRNA_instance)
-	mRNA_instance.global_position = mRNA_Spawn.global_position
-	mRNA_instance.dna_sequence = dna_sequence_template
-
-# =========================
-# RESTART TRANSCRIPTION
-func restart_transcription() -> void:
-	for node in spawned_nodes:
-		if is_instance_valid(node):
-			node.queue_free()
-	spawned_nodes.clear()
-
-	active_rnap = null
-	elongating = false
-	_elongation_target = Vector2.ZERO
-
-	if termination_visual:
-		termination_visual.hide()
-	if rna_polymerase_texture:
-		rna_polymerase_texture.hide()
-	if drop_place:
-		drop_place.hide()
-
-	current_phase = PHASES.PRE_INITIATION
-	_setup_phase(current_phase)
-
-	if interaction_area:
-		interaction_area.set_process_input(true)
-		_interaction_locked = false
-
-# =========================
-# SPAWN EFFECT
-func _spawn_self(target_pos: Vector2) -> void:
+# SPAWN WITH CAMERA SHAKE
+func spawn_to_position(target_pos: Vector2) -> void:
 	position = target_pos + Vector2(0, -200)
 	var tween = get_tree().create_tween()
 	tween.tween_property(self, "global_position", target_pos, 0.1).set_ease(Tween.EASE_IN)
@@ -313,8 +263,32 @@ func _spawn_self(target_pos: Vector2) -> void:
 		player.camera.start_shake(12, 0.5)
 
 # =========================
-# HELPER: CUTSCENE FOCUS
-func _cutscene_focus_node(node: Node, duration: float) -> void:
-	if not _cutscene_node or not is_instance_valid(node):
-		return
-	_cutscene_node.focus_on(node, duration)
+# RESET
+func restart_transcription() -> void:
+	# Free all spawned nodes
+	for node in spawned_nodes:
+		if is_instance_valid(node):
+			node.queue_free()
+	spawned_nodes.clear()
+	active_rnap = null
+	elongating = false
+	_elongation_target = Vector2.ZERO
+	_mRNA_trigger_spawned = false
+
+	if termination_visual:
+		termination_visual.hide()
+	if rna_polymerase_texture:
+		rna_polymerase_texture.hide()
+	if drop_place:
+		drop_place.hide()
+
+	# Reset phase
+	current_phase = PHASES.PRE_INITIATION
+	_setup_phase(current_phase)
+
+	# Reactivate interaction area
+	if interaction_area:
+		interaction_area.interact = Callable(self, "_on_interact_pre_initiation")
+		interaction_area.set_process_input(true)
+		_show_interaction_area()
+	_interaction_locked = false

@@ -1,17 +1,24 @@
-[gd_scene load_steps=6 format=3 uid="uid://4wx5x4880fvr"]
+[gd_scene load_steps=8 format=3 uid="uid://4wx5x4880fvr"]
 
 [ext_resource type="PackedScene" uid="uid://cd2m5cl2mj1qq" path="res://scenes/objects/game_level_obj/grabbable_object.tscn" id="1_jqkyw"]
+[ext_resource type="Shader" uid="uid://divxqb1ff64oj" path="res://scripts/utils/shaders/outline.gdshader" id="2_7dal1"]
 [ext_resource type="Texture2D" uid="uid://bvl0ovb44jxj8" path="res://assets/rush/Untitled43_20260105180103.png" id="2_jqkyw"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_h0hus"]
+shader = ExtResource("2_7dal1")
+shader_parameter/outline_color = Color(1, 1, 1, 1)
+shader_parameter/progress = 1.0
+shader_parameter/width = 0.0010000000475
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jqkyw"]
 atlas = ExtResource("2_jqkyw")
 region = Rect2(4097, 511, 217, 277)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_jqkyw"]
-radius = 51.0392
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_7dal1"]
 radius = 116.00431
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jqkyw"]
+radius = 182.04395
 
 [node name="rnap" groups=["rnap"] instance=ExtResource("1_jqkyw")]
 z_index = 1
@@ -20,14 +27,19 @@ collision_mask = 2
 object_tag = "RNA POLYMERASE"
 
 [node name="Sprite2D" parent="." index="0"]
+material = SubResource("ShaderMaterial_h0hus")
 texture = SubResource("AtlasTexture_jqkyw")
 
 [node name="CollisionShape2D" parent="." index="1"]
-shape = SubResource("CircleShape2D_jqkyw")
-
-[node name="CollisionShape2D" parent="GrabArea" index="0"]
 shape = SubResource("CircleShape2D_7dal1")
 debug_color = Color(1, 1, 1, 0.41960785)
+
+[node name="InteractionArea" parent="." index="2"]
+label_name = "RNA POLYMERASE"
+action_name = "GRAB"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea" index="1"]
+shape = SubResource("CircleShape2D_jqkyw")
 
 [node name="ProgressBar" type="ProgressBar" parent="." index="3"]
 visible = false

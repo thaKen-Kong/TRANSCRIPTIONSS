@@ -1,21 +1,44 @@
 extends StaticBody2D
 class_name DNA_MT
 
-@export var dna_mission_terminal : PackedScene
-@onready var interaction_area : InteractionArea = $InteractionArea
+# =========================
+# EXPORTS
+# =========================
+@export var dna_mission_terminal: PackedScene
+@onready var interaction_area: InteractionArea = $InteractionArea
 
-var is_terminal_open : bool = false
+# =========================
+# INTERNAL STATE
+# =========================
+var terminal_instance: Node = null
+var is_terminal_open: bool = false
 
-func _ready():
-	interaction_area.interact = Callable(self, "open_mission_terminal")
+# =========================
+# LIFECYCLE
+# =========================
+func _ready() -> void:
+	if interaction_area:
+		interaction_area.interact = Callable(self, "toggle_mission_terminal")
 
-func open_mission_terminal():
-	var dna_mt_instance = dna_mission_terminal.instantiate()
-	if !is_terminal_open:
-		add_child(dna_mt_instance)
+# =========================
+# TOGGLE TERMINAL
+# =========================
+func toggle_mission_terminal(player: CharacterBody2D) -> void:
+	if not dna_mission_terminal:
+		push_error("DNA_MT: No dna_mission_terminal scene assigned!")
+		return
+
+	if not is_terminal_open:
+		# Instantiate and show the terminal
+		terminal_instance = dna_mission_terminal.instantiate()
+		add_child(terminal_instance)
 		is_terminal_open = true
-	elif is_terminal_open:
+	else:
+		# Close the terminal safely
+		if terminal_instance and terminal_instance.is_inside_tree():
+			if "close" in terminal_instance:
+				terminal_instance.close()  # call a proper method if the scene has one
+			else:
+				terminal_instance.queue_free()
 		is_terminal_open = false
-		dna_mt_instance._close()
-		
-	
+		terminal_instance = null

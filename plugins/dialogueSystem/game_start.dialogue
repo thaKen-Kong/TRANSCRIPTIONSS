@@ -1,11 +1,11 @@
 ~ start
 Nucleolus:
-	Hey! Do you want to start the "GAME"?
-- Yes:
+	Hey! What would you like to do?
+- Start the game
 	Nucleolus:
-		Ok!
+		Ok! Let's begin.
 	do GameState.npc._start_level()
-- Not Yet:
+- Nevermind
 	Nucleolus:
-		Just tell me if you are ready.
+		Alright! Come back when you're ready.
 => END

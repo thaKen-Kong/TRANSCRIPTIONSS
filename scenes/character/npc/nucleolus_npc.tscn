@@ -110,7 +110,9 @@ libraries = {
 &"": SubResource("AnimationLibrary_ahamx")
 }
 
-[node name="InteractionArea" parent="." instance=ExtResource("3_ahamx")]
+[node name="InteractionArea" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("3_ahamx")]
+sprite = NodePath("../body")
+label_name = "Nucleolus"
 action_name = "TALK"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea"]

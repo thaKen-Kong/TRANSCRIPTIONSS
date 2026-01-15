@@ -1,8 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://fdr25f3fss3x"]
+[gd_scene load_steps=6 format=3 uid="uid://fdr25f3fss3x"]
 
 [ext_resource type="Script" uid="uid://16bqb75siu67" path="res://scripts/world/buildings/dna_mission_terminal.gd" id="1_a3js4"]
 [ext_resource type="Texture2D" uid="uid://dc8uj170geows" path="res://assets/world/Assets/dma_mission_terminal.png" id="1_ar0gf"]
 [ext_resource type="PackedScene" uid="uid://dcmteki0o3m78" path="res://scenes/utils/interaction_area.tscn" id="2_jmyui"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_a3js4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a3js4"]
 size = Vector2(447, 177)
@@ -16,9 +18,13 @@ script = ExtResource("1_a3js4")
 polygon = PackedVector2Array(-237, 275, 240, 274, 250, 226, 247, 171, 229, 115, 213, 84, 187, 54, -180, 53, -217, 89, -240, 141, -250, 189, -250, 238)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_a3js4")
 texture = ExtResource("1_ar0gf")
 
-[node name="InteractionArea" parent="." instance=ExtResource("2_jmyui")]
+[node name="InteractionArea" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("2_jmyui")]
+sprite = NodePath("../Sprite2D")
+label_name = "DNA MISSION TERMINAL"
+action_name = "DO MISSIONS"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea"]
 position = Vector2(3.5, 277.5)

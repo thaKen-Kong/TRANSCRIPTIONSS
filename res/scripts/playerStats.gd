@@ -6,3 +6,5 @@ class_name playerStats
 
 @export var atp_units: int = 50        # Number of ATP molecules
 @export var atp_points: float = 100.0 # Current ATP (0–100 per unit)
+
+var atp_drain_enabled : bool = false

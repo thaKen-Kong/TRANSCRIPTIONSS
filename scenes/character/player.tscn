@@ -48,6 +48,7 @@ script = ExtResource("5_1y732")
 metadata/_custom_type_script = "uid://ihqomvprq5ua"
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." groups=["ui"]]
+layer = 0
 
 [node name="player_ui" parent="CanvasLayer" instance=ExtResource("6_erpy8")]
 

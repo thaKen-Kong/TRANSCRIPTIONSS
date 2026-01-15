@@ -3,8 +3,8 @@ class_name GAME_LEVEL
 
 # =========================
 # NODES
-# =========================
 @export var cutscene: Cutscene
+@export var player: Player                  # Reference to Player node
 @onready var dna_spawn_point: Marker2D = $Map/DNA_SPAWN_POINT
 
 # =========================
@@ -25,8 +25,11 @@ var game_active: bool = false
 # =========================
 func _ready() -> void:
 	# Hide DNA until level starts
+	
+	PlayerInfo.player_info.atp_drain_enabled = true
+	
 	cutscene.play([
-		func(): cutscene.focus_on($Map/player, 0.8),
+		func(): cutscene.focus_on(player, 0.8),
 		func(): cutscene.wait(2.0)
 	])
 	
@@ -65,10 +68,15 @@ func start_level() -> void:
 	timer = level_duration
 	deliveries_done = 0
 
+	# Update Player UI at level start
+	if player:
+		player.update_deliveries_display(deliveries_done, deliveries_required)
+		player.update_timer_display(timer)
+
 	var dna := dna_objects[0]
 	_setup_dna(dna)
 
-	# Play cutscene first
+	# Play cutscene
 	await get_tree().create_timer(0.4).timeout
 	if cutscene:
 		cutscene.play([
@@ -84,13 +92,11 @@ func start_level() -> void:
 
 # =========================
 func _setup_dna(dna: DNA) -> void:
+	# DNA mechanics remain internal
 	dna.deliveries_required = deliveries_required
 	dna.deliveries_done = deliveries_done
-	dna.delivered_label.text = "DELIVERED: 0/%d" % deliveries_required
-	dna.timer_label.text = "Time Left: %.1fs" % timer
-
 	dna.show()
-	dna._spawn_self(dna_spawn_point.global_position)
+	dna.spawn_to_position(dna_spawn_point.global_position)
 
 # =========================
 func _process(delta: float) -> void:
@@ -100,8 +106,9 @@ func _process(delta: float) -> void:
 	timer -= delta
 	timer = max(timer, 0)
 
-	if dna_objects.size() > 0:
-		dna_objects[0].timer_label.text = "Time Left: %.1fs" % timer
+	# Update Player UI timer
+	if player:
+		player.update_timer_display(timer)
 
 	if timer <= 0:
 		_finish_level()
@@ -119,12 +126,14 @@ func _on_exit_site_object_placed(obj: GrabbableObject) -> void:
 
 	deliveries_done += 1
 
-	if dna_objects.size() > 0:
-		var dna = dna_objects[0]
-		dna.delivered_label.text = "DELIVERED: %d/%d" % [deliveries_done, deliveries_required]
+	# Update Player UI deliveries
+	if player:
+		player.update_deliveries_display(deliveries_done, deliveries_required)
 
+	# Restart DNA transcription
+	if dna_objects.size() > 0:
 		await get_tree().create_timer(0.5).timeout
-		dna.restart_transcription()
+		dna_objects[0].restart_transcription()
 
 	if deliveries_done >= deliveries_required:
 		_finish_level()
@@ -134,6 +143,11 @@ func _on_exit_site_object_placed(obj: GrabbableObject) -> void:
 func _on_dna_phase_completed(phase_name: String) -> void:
 	print("DNA phase completed:", phase_name)
 
+	# Update Player UI phase
+	if player:
+		player.update_phase_display(phase_name)
+
+	# Spawn mRNA at PARING completion
 	if phase_name == "PARING" and dna_objects.size() > 0:
 		var dna := dna_objects[0]
 		if dna.mRNA_scene:
@@ -161,4 +175,8 @@ func _finish_level() -> void:
 	reward.time_left = timer
 	reward.reward_per_delivery = reward_per_delivery
 
-	get_tree().root.add_child(reward)
+	# Add to current scene canvas layer so it receives input properly
+	if get_tree().current_scene.has_node("CanvasLayer"):
+		get_tree().current_scene.add_child(reward)
+	else:
+		get_tree().current_scene.add_child(reward)

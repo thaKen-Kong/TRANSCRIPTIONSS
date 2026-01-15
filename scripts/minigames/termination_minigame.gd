@@ -119,7 +119,7 @@ func _start_timer_if_needed():
 func _get_scaled_fill() -> float:
 	# Linear decrease: last 30% of the bar is harder to fill
 	var fraction = current_value / max_value
-	var scale_factor = 1.0 - (fraction * 0.08) # Early: full speed, late: ~30% weaker
+	var scale_factor = 1.0 - (fraction * 0.01) # Early: full speed, late: ~30% weaker
 	return fill_per_click * scale_factor
 
 # --------------------------
